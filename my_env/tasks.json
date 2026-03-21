@@ -1,0 +1,131 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Setup: Full Project (all steps)",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File install.ps1",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Setup: Create virtualenv",
+      "type": "shell",
+      "command": "python -m venv .venv",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Setup: Install packages",
+      "type": "shell",
+      "command": ".venv\\Scripts\\Activate.ps1; pip install --upgrade pip; pip install -r requirements.txt",
+      "options": {
+        "shell": {
+          "executable": "powershell",
+          "args": ["-ExecutionPolicy", "Bypass", "-Command"]
+        }
+      },
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Setup: Freeze requirements",
+      "type": "shell",
+      "command": ".venv\\Scripts\\Activate.ps1; pip freeze > requirements.txt",
+      "options": {
+        "shell": {
+          "executable": "powershell",
+          "args": ["-ExecutionPolicy", "Bypass", "-Command"]
+        }
+      },
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Setup: Create project folders",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File scripts/create_folders.ps1",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Dev: Activate venv in terminal",
+      "type": "shell",
+      "command": ".venv\\Scripts\\Activate.ps1",
+      "options": {
+        "shell": {
+          "executable": "powershell",
+          "args": ["-ExecutionPolicy", "Bypass", "-NoExit", "-Command"]
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Dev: Run tests",
+      "type": "shell",
+      "command": ".venv\\Scripts\\Activate.ps1; pytest tests/ -v --tb=short",
+      "options": {
+        "shell": {
+          "executable": "powershell",
+          "args": ["-ExecutionPolicy", "Bypass", "-Command"]
+        }
+      },
+      "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "Dev: Lint (flake8)",
+      "type": "shell",
+      "command": ".venv\\Scripts\\Activate.ps1; flake8 src/",
+      "options": {
+        "shell": {
+          "executable": "powershell",
+          "args": ["-ExecutionPolicy", "Bypass", "-Command"]
+        }
+      },
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Dev: Format (black)",
+      "type": "shell",
+      "command": ".venv\\Scripts\\Activate.ps1; black src/",
+      "options": {
+        "shell": {
+          "executable": "powershell",
+          "args": ["-ExecutionPolicy", "Bypass", "-Command"]
+        }
+      },
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Dev: Launch Jupyter",
+      "type": "shell",
+      "command": ".venv\\Scripts\\Activate.ps1; jupyter lab --notebook-dir=notebooks",
+      "options": {
+        "shell": {
+          "executable": "powershell",
+          "args": ["-ExecutionPolicy", "Bypass", "-Command"]
+        }
+      },
+      "presentation": { "reveal": "always", "panel": "new", "focus": true },
+      "problemMatcher": []
+    }
+  ]
+}

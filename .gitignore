@@ -179,3 +179,54 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Environment
+.env
+*.env
+.env.local
+
+# Data files (too large)
+data/
+*.parquet
+*.csv
+*.h5
+*.pkl
+*.joblib
+
+# Model files
+models/trained/
+models/results/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Azure credentials
+.azure/
+
+# Docker
+.dockerignore
+```

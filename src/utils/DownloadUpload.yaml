@@ -1,0 +1,98 @@
+WRDS:
+  date_start: "2007-01-01"
+  date_end: "2023-12-31"
+
+  queries:
+    - name: "crsp.dsf"
+      sql: |
+        SELECT
+          date,
+          permno,
+          prc,
+          openprc,
+          askhi,
+          bidlo,
+          vol,
+          ret,
+          shrout,
+          cfacpr,
+          cfacshr
+        FROM
+          crsp.dsf
+        WHERE
+          date BETWEEN {sd} AND {ed}
+          AND ABS(prc) >= 5
+          AND vol > 0
+    - name: "crsp.dsenames"
+      sql: |
+        SELECT
+          permno,
+          ticker,
+          comnam,
+          shrcd,
+          exchcd,
+          namedt,
+          nameendt
+        FROM
+          crsp.dsenames
+    - name: "comp_fundq"
+      sql: |
+        SELECT
+          gvkey,
+          datadate,
+          rdq,
+          revtq,
+          cogsq,
+          xsgaq,
+          niq,
+          atq,
+          ltq,
+          seqq,
+          cheq,
+          oancfy,
+          capxy,
+          cshoq
+        FROM
+          comp.fundq
+        WHERE
+          datadate BETWEEN {sd} AND {ed}
+          AND curcdq = 'USD'
+          AND fic = 'USA'
+    - name: "statsum_epsus"
+      sql: |
+        SELECT
+          ticker,
+          statpers,
+          fpedats,
+          fpi,
+          numest,
+          meanest,
+          stdev
+        FROM
+          ibes.statsum_epsus
+        WHERE
+          statpers BETWEEN {sd} AND {ed}
+          AND fpi IN ('1','2','3','4')
+    - name: "act_epsus"
+      sql: |
+        SELECT
+          ticker,
+          anndats,
+          actual,
+          fpedats,
+          value
+        FROM
+          ibes.act_epsus
+        WHERE
+          anndats BETWEEN {sd} AND {ed}
+    - name: "crsp.ccmxpf_linktable"
+      sql: |
+        SELECT
+          gvkey,
+          lpermno,
+          linkdt,
+          linkenddt
+        FROM
+          crsp.ccmxpf_linktable
+
+
